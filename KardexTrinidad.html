@@ -98,7 +98,11 @@ button:disabled{opacity:.4}
 <script>
 /* [id, nombre, unidad por defecto, nombres editables del día (opcional), texto guía (opcional)] */
 const AREAS={
-fri:{nm:"Frituras",ti:"FRITURAS",S:[]},
+fri:{nm:"Frituras",ti:"FRITURAS",S:[
+["Mariscos",[["fm1","Pescado","bolsa"],["fm2","Langostino","bolsa"],["fm3","Percebe","bolsa"],["fm4","Lapicero","bolsa"],["fm5","Calamar","bolsa"],["fm6","Yuyo","bolsa"],["fm7","Pota","bolsa"],["fm8","Caracol","bolsa"],["fm9","Lapa","bolsa"]]],
+["Producción",[["fp1","E. de lomo","und"],["fp2","Wantanes","paquete"],["fp3","Yucas","paquete"],["fp4","Empanadas","und"],["fp5","Papas fritas","und"],["fp6","Ajos conchito","bolsa"]]],
+["Insumos y salsas",[["fi1","Harina","saco"],["fi2","Panko","saco"],["fi3","Cancha","bolsa"],["fi4","Huevo","celda"],["fi5","Salsa BBQ","bolsa"],["fi6","Ketchup","bolsa"],["fi7","Tamarindo","bolsa"],["fi8","Huacatay","taper"],["fi9","Ocopa","taper"],["fi10","Crema de rocoto","taper"],["fi11","G. animalito","paquete"],["fi12","Soda","caja"],["fi13","Mayonesa","caja"],["fi14","Sriracha","bolsa"],["fi15","Albahaca","taper"],["fi16","Leche entera","caja"],["fi17","Golf","taper"],["fi18","Pejerrey","und"],["fi19","Aceite","bolsa"]]]
+]},
 cal:{nm:"Calientes",ti:"CALIENTES",S:[
 ["Muelle",[["mu1","Pescado","und"],["mu2","Cangrejo","und"],["mu3","Pulpo","bolsa"]]],
 ["Verduras",[["ve1","Tomate","und"],["ve2","Pimentón","und"],["ve3","Choclo entero","und"],["ve4","Brócoli","kg"],["ve5","Nacido","paquete"],["ve6","Cebolla china","atado"],["ve7","Zapallo loche","und"],["ve8","Ají amarillo","kg"],["ve9","Zapallo macre","und"],["ve10","Arveja","kg"],["ve11","Habas","kg"],["ve12","Yuca amarilla","kg"],["ve13","Papa","jaba"],["ve14","Zanahoria","und"],["ve15","Perejil","atado"],["ve16","Lomo fino","porciones"],["ve17","Chicha de jora","botellas"],["ve18","Saco de arroz","saco"],["ve19","Queso parmesano","kg"],["ve20","Queso fresco","kg"]]],
@@ -115,7 +119,7 @@ fro:{nm:"Fríos",ti:"FRÍOS",S:[
 ["Verduras",[["v1","Palta","und"],["v2","Apio","atado"]]]
 ]}
 };
-const MULTI={pt:"Nombre del pescado",pl:"Nombre del pescado",pf:"Tipo de pescado",mu1:"Nombre del pescado"};
+const MULTI={pt:"Nombre del pescado",pl:"Nombre del pescado",pf:"Tipo de pescado",mu1:"Nombre del pescado",fm1:"Nombre del pescado"};
 let area,S=[],ALL=[];
 const $=q=>document.querySelector(q);
 const esc=t=>String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
