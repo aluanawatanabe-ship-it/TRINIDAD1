@@ -3,53 +3,88 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#D9E2DF"><meta name="apple-mobile-web-app-capable" content="yes"><title>Kardex de fríos · Trinidad</title>
+<meta name="theme-color" content="#D9E2DF"><meta name="apple-mobile-web-app-capable" content="yes"><title>Kardex · Trinidad</title>
 <style>
-:root{--bg:#F3F5F4;--ink:#161616;--pk:#161616;--pk2:#D9E2DF;--pk3:#161616;--sea:#2A78A0;--line:#D3DAD7;--mut:#667370}
+:root{--bg:#F3F5F4;--ink:#161616;--pk:#161616;--pk2:#D9E2DF;--pk3:#161616;--sea:#2A78A0;--line:#D3DAD7;--mut:#667370;--up:#2A78A0;--dn:#B5502B}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.35 "Avenir Next","Trebuchet MS",system-ui,sans-serif;padding-bottom:90px;-webkit-text-size-adjust:100%}
-header{padding:calc(18px + env(safe-area-inset-top)) 16px 12px;background:linear-gradient(180deg,#D9E2DF,var(--bg))}
-header>*,main{max-width:560px;margin-left:auto;margin-right:auto}
-button,input{touch-action:manipulation}
+header{padding:calc(14px + env(safe-area-inset-top)) 16px 12px;background:linear-gradient(180deg,#D9E2DF,var(--bg))}
+header>*,main,#home>*{max-width:560px;margin-left:auto;margin-right:auto}
+button,input,select{touch-action:manipulation}
 .logo{text-align:center;margin-bottom:6px}
 .logo small{display:block;font-size:11px;font-weight:700;letter-spacing:.38em;padding-left:.38em}
 .logo b{display:block;font-size:34px;line-height:1.1;letter-spacing:.06em;font-weight:900;font-family:"Arial Black","Helvetica Neue",Arial,sans-serif}
 .logo svg{display:block;margin:5px auto 3px}
 h1{margin:10px 0 12px;text-align:center;font-size:17px;font-weight:600;color:var(--sea)}
+.top{margin-bottom:4px}
+.top button{padding:8px 14px;font-size:14px;border-radius:10px}
 .meta{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .meta label{font-size:13px;color:var(--mut)}
 .meta .full{grid-column:1/-1}
 section{margin:14px 12px;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 section h2{margin:0;padding:10px 14px;font-size:15px;background:var(--pk2);color:var(--pk3)}
-.row{display:grid;grid-template-columns:1fr 84px 88px;gap:8px;align-items:start;padding:9px 12px;border-top:1px solid var(--line)}
-input{font:inherit;color:inherit;border:1px solid var(--line);border-radius:9px;padding:11px 8px;width:100%;background:#fff}
+.row{display:grid;grid-template-columns:1fr 54px 80px 66px;gap:8px;align-items:start;padding:9px 12px;border-top:1px solid var(--line)}
+select.fr{padding:11px 4px;font-size:14px;color:var(--mut);height:44px}
+.row input.u{font-size:14px;padding:11px 6px}
+.mrow{padding:9px 12px;border-top:1px solid var(--line)}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.mh b{padding-top:0}
+.mh input.u{width:92px;padding:8px}
+.ent{display:grid;grid-template-columns:1fr 54px 80px 34px;gap:8px;align-items:start;margin-top:8px}
+.ent .del{padding:0;height:44px;width:34px;border-radius:9px;font-size:20px}
+.add{width:100%;margin-top:10px;padding:11px}
+input,select{font:inherit;color:inherit;border:1px solid var(--line);border-radius:9px;padding:11px 8px;width:100%;background:#fff}
 input.q{font-weight:700;text-align:center}
 input.u{color:var(--mut)}
 input.sub{margin-top:5px;padding:8px}
-input:focus{outline:2px solid var(--sea);border-color:var(--sea)}
+input:focus,select:focus{outline:2px solid var(--sea);border-color:var(--sea)}
 .nm b{display:block;padding-top:11px}
 .ay{display:block;color:var(--sea);font-size:12.5px;margin-top:3px}
+.empty{margin:30px 20px;text-align:center;color:var(--mut)}
 .bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;align-items:center;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line)}
 .bar span{flex:1;font-size:14px;color:var(--mut)}
 button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:14px 20px;background:var(--pk);color:#fff}
 button.g{background:var(--pk2);color:var(--pk3)}
-#sum{display:none;position:fixed;inset:0;background:#fff;overflow:auto;padding:calc(16px + env(safe-area-inset-top)) 16px 190px;z-index:5}
-#sum h2{margin:0 0 4px;font-size:26px}
-#sum table{width:100%;border-collapse:collapse;margin-top:10px}
-#sum td{padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
-#sum td:last-child{text-align:right;font-weight:700;white-space:nowrap}
-#sum .sec td{background:var(--pk2);color:var(--pk3);font-weight:700;text-align:left}
-#sum .warn{color:var(--pk3);font-weight:600}
-#sumbtns{position:fixed;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;gap:10px;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line)}
-#sumbtns button{flex:1 1 40%;padding:13px 10px}
-@media print{#app,.bar,#sumbtns{display:none!important}#sum{position:static;display:block!important;padding:0}}
+button:disabled{opacity:.4}
+#app,.bar{display:none}
+#home{padding:calc(36px + env(safe-area-inset-top)) 20px 40px}
+#home .logo b{font-size:40px}
+#home h1{margin:22px 0 14px;font-size:18px}
+.area{display:block;width:100%;margin:12px 0;padding:22px 16px;font-size:20px;letter-spacing:.14em;border-radius:16px}
+.area small{display:block;margin-top:4px;font-size:12px;font-weight:500;letter-spacing:.02em;opacity:.7}
+.ov{display:none;position:fixed;inset:0;background:#fff;overflow:auto;padding:calc(16px + env(safe-area-inset-top)) 16px 190px;z-index:5}
+.ov h2{margin:0 0 4px;font-size:26px}
+.ov table{width:100%;border-collapse:collapse;margin-top:10px}
+.ov td,.ov th{padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.ov td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.ov .sec td,.ov .sec th{background:var(--pk2);color:var(--pk3);font-weight:700;text-align:left}
+.ov .warn{color:var(--pk3);font-weight:600}
+#hist table{font-size:13.5px}
+#hist th{text-align:right;font-size:12px;color:var(--mut);font-weight:600}
+#hist th:first-child{text-align:left}
+#hist td{text-align:right;font-weight:400;white-space:normal}
+#hist td:first-child{text-align:left}
+#hist td:last-child{font-weight:700}
+#hist .sec td{text-align:left;font-weight:700}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.tabs{display:flex;gap:8px;margin:10px 0}
+.tabs button{flex:1;padding:10px}
+.sel2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sel2 label{font-size:13px;color:var(--mut)}
+.cards{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px;font-size:13.5px}
+.cards span{background:var(--pk2);border-radius:999px;padding:4px 10px}
+.fb{position:fixed;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;gap:10px;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);z-index:6}
+.fb button{flex:1 1 40%;padding:13px 10px}
+@media print{#home,#app,.bar,.fb,#hist{display:none!important}#sum{position:static;display:block!important;padding:0}}
 </style>
 </head>
 <body>
+<div id="home"></div>
 <div id="app">
 <header>
+  <div class="top"><button class="g" id="back">‹ Áreas</button></div>
   <div class="logo"><small>CHIMBOTE</small><svg viewBox="0 0 80 14" width="64" height="12" aria-hidden="true"><path d="M2 11Q14-3 26 9Q38-3 50 9Q62-3 74 9" fill="none" stroke="#161616" stroke-width="2" stroke-linecap="round"/></svg><b>TRINIDAD</b><small>CEBICHERÍA</small></div>
-  <h1>Kardex del área de fríos</h1>
+  <h1 id="t1">Kardex</h1>
   <div class="meta">
     <div class="full"><label>Fecha</label><input type="date" id="fecha"></div>
     <div><label>Jefa</label><input data-f="jefa" id="jefa"></div>
@@ -59,69 +94,142 @@ button.g{background:var(--pk2);color:var(--pk3)}
 <main id="list"></main>
 </div>
 <div class="bar"><span id="cnt"></span><button id="go">Guardar</button></div>
-<div id="sum"><div id="sumbody"></div><div id="sumbtns"></div></div>
+<div id="sum" class="ov"><div id="sumbody"></div><div id="sumbtns" class="fb"></div></div>
 <script>
-// [id, nombre, unidad por defecto, nombres editables del día (opcional)]
-const S=[
-["Pesca del día",[["pt","Pescado de temporada","taper","Páramo, Viña, Cabrilla"],["pl","Pescado de lujo","bolsa","Viuda, Lenguado"],["ch","Chita","pzas"],["le","Lenguetas","pzas"],["pf","Pescado prestado a fritura","pzas","","Tipo de pescado"]]],
+/* [id, nombre, unidad por defecto, nombres editables del día (opcional), texto guía (opcional)] */
+const AREAS={
+fri:{nm:"Frituras",ti:"FRITURAS",S:[]},
+cal:{nm:"Calientes",ti:"CALIENTES",S:[
+["Muelle",[["mu1","Pescado","und"],["mu2","Cangrejo","und"],["mu3","Pulpo","bolsa"]]],
+["Verduras",[["ve1","Tomate","und"],["ve2","Pimentón","und"],["ve3","Choclo entero","und"],["ve4","Brócoli","kg"],["ve5","Nacido","paquete"],["ve6","Cebolla china","atado"],["ve7","Zapallo loche","und"],["ve8","Ají amarillo","kg"],["ve9","Zapallo macre","und"],["ve10","Arveja","kg"],["ve11","Habas","kg"],["ve12","Yuca amarilla","kg"],["ve13","Papa","jaba"],["ve14","Zanahoria","und"],["ve15","Perejil","atado"],["ve16","Lomo fino","porciones"],["ve17","Chicha de jora","botellas"],["ve18","Saco de arroz","saco"],["ve19","Queso parmesano","kg"],["ve20","Queso fresco","kg"]]],
+["Macro",[["ma1","Aceite Cil","balde"],["ma2","Salsa nikkei","botella"],["ma3","Salsa de ostión","und"],["ma4","Vinagre","und"],["ma5","Sillao","und"],["ma6","Mantequilla","cajas"],["ma7","Vino blanco","cajas"],["ma8","Aceite de ajonjolí","und"]]],
+["Bases",[["ba1","Ají amarillo","und"],["ba2","Ají panca","und"],["ba3","Salsa madre","und"],["ba4","Base de loche","und"]]]
+]},
+fro:{nm:"Fríos",ti:"FRÍOS",S:[
+["Pesca del día",[["pt","Pescado de temporada","taper"],["pl","Pescado de lujo","bolsa"],["ch","Chita","pzas"],["le","Lenguetas","pzas"],["pf","Pescado prestado a fritura","pzas"]]],
 ["Leches de tigre",[["t1","Leche de tigre infusionada","biberón"],["t2","Tigre roja","biberón"],["t3","Tigre amarilla","biberón"],["t4","Tigre cremosa","biberón"]]],
 ["Cortes y preparados",[["c1","Cebolla en pluma","taper"],["c2","Cebolla en brunoise","cambro"],["c3","Culantro chifonade","cambro"],["c4","Ají limo en brunoise","cambro"],["c5","Camote sancochado","und"]]],
 ["Pastas y base",[["p1","Pasta de rocoto","bolsa"],["p2","Pasta de ají amarillo","bolsa"],["p3","Ajos","nov."],["p4","Kion","nov."],["p5","Zarandaja","bolsa"]]],
 ["Postres y guarniciones",[["g1","Merengado","porción"],["g2","Causa","porción"],["g3","Picarón","porción"]]],
 ["Mariscos y barra",[["m1","Concha abanico","porción"],["m2","Concha negra","porción"],["m3","Concha pala","porción"],["m4","Almejas","porción"],["m5","Percebe","porción"],["m6","Niguiris","porción"],["m7","Ostras","porción"],["m8","Navajas","porción"],["m9","Navajuelas","porción"]]],
 ["Verduras",[["v1","Palta","und"],["v2","Apio","atado"]]]
-];
-const ALL=S.flatMap(s=>s[1]);
+]}
+};
+const MULTI={pt:"Nombre del pescado",pl:"Nombre del pescado",pf:"Tipo de pescado",mu1:"Nombre del pescado"};
+let area,S=[],ALL=[];
 const $=q=>document.querySelector(q);
 const esc=t=>String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ls={g(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
-let units=ls.g("fr:units")||{},st,pv;
+let units={},st,pv;
 
-function prevOf(f){let b=null;try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith("fr:saved:")){const d=k.slice(9);if(d<f&&(!b||d>b))b=d}}}catch(e){}return b?ls.g("fr:saved:"+b):null}
-function load(f){st=ls.g("fr:saved:"+f)||ls.g("fr:draft:"+f)||{jefa:"",enc:"",it:{}};st.fecha=f;pv=prevOf(f);
+/* Limpieza única: borra los registros guardados antes (se ejecuta una sola vez en cada celular) */
+(function(){try{if(localStorage.getItem("fr:reset1"))return;const ks=[];for(let i=0;i<localStorage.length;i++)ks.push(localStorage.key(i));ks.forEach(k=>{if(k.startsWith("fr:"))localStorage.removeItem(k)});localStorage.setItem("fr:reset1","1")}catch(e){}})();
+
+/* Migración: lo guardado antes (solo fríos) pasa al área Fríos */
+(function(){try{const ks=[];for(let i=0;i<localStorage.length;i++)ks.push(localStorage.key(i));
+  ks.forEach(k=>{const m=k.match(/^fr:(saved|draft):(\d{4}-\d{2}-\d{2})$/);if(m){const v=localStorage.getItem(k);localStorage.setItem("fr:"+m[1]+":fro:"+m[2],v);localStorage.removeItem(k)}});
+  const u=localStorage.getItem("fr:units");if(u!==null){if(localStorage.getItem("fr:units:fro")===null)localStorage.setItem("fr:units:fro",u);localStorage.removeItem("fr:units")}
+}catch(e){}})();
+
+const savedDates=a=>{const p="fr:saved:"+a+":",o=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith(p))o.push(k.slice(p.length))}}catch(e){}return o.sort().reverse()};
+const rec=(a,d)=>ls.g("fr:saved:"+a+":"+d);
+const dlab=d=>new Date(d+"T12:00").toLocaleDateString("es-PE",{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+const dshort=d=>new Date(d+"T12:00").toLocaleDateString("es-PE",{day:"numeric",month:"short"});
+
+/* ---------- Inicio: elegir área ---------- */
+function renderHome(){
+  $("#home").innerHTML=`<div class="logo"><small>CHIMBOTE</small><svg viewBox="0 0 80 14" width="64" height="12" aria-hidden="true"><path d="M2 11Q14-3 26 9Q38-3 50 9Q62-3 74 9" fill="none" stroke="#161616" stroke-width="2" stroke-linecap="round"/></svg><b>TRINIDAD</b><small>CEBICHERÍA</small></div><h1>Elección de área</h1>`+
+  ["fri","cal","fro"].map(a=>{const d=savedDates(a)[0];return `<button class="area" data-a="${a}">${AREAS[a].ti}<small>${d?"Último registro: "+dshort(d):"Sin registros"}</small></button>`}).join("")}
+function showHome(){["#app",".bar","#sum"].forEach(s=>$(s).style.display="none");$("#home").style.display="block";renderHome();scrollTo(0,0)}
+function enter(a){area=a;S=AREAS[a].S;ALL=S.flatMap(s=>s[1]);units=ls.g("fr:units:"+a)||{};
+  $("#t1").textContent="Kardex del área de "+AREAS[a].nm.toLowerCase();
+  $("#home").style.display="none";$("#app").style.display="block";$(".bar").style.display="flex";
+  $("#go").disabled=!ALL.length;
+  load(iso(new Date()));scrollTo(0,0)}
+
+/* ---------- Formulario ---------- */
+function prevOf(f){const d=savedDates(area).filter(x=>x<f)[0];
+  if(d){const r=rec(area,d);if(r)r.fecha=d;return r}
+  const sd=AREAS[area].seed;
+  return sd?{fecha:null,it:Object.fromEntries(Object.entries(sd).map(([k,v])=>[k,{q:v}]))}:null}
+const dayLbl=d=>{const x=new Date(d+"T12:00");return ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"][x.getDay()]+" "+x.getDate()};
+const agoLbl=d=>{if(!d)return "anterior";return d===iso(new Date(Date.now()-864e5))?"ayer":dshort(d)};
+function load(f){st=ls.g("fr:saved:"+area+":"+f)||ls.g("fr:draft:"+area+":"+f)||{jefa:"",enc:"",it:{}};st.fecha=f;pv=prevOf(f);
   $("#fecha").value=f;$("#jefa").value=st.jefa||"";$("#enc").value=st.enc||"";render()}
 const U=i=>(st.it[i[0]]&&st.it[i[0]].u)||units[i[0]]||i[2];
+const getE=o=>o&&o.e?o.e:((o&&(o.q||o.s))?[{n:o.s||"",q:o.q||""}]:[]);
+const ensureE=(o,i)=>{if(!o.e)o.e=getE(o).map(x=>({n:x.n,q:x.q}));while(o.e.length<=i)o.e.push({n:"",q:""})};
+const FR=["1/8","1/7","1/6","1/5","1/4","1/3","1/2","2/3","3/4"];
+const trailFr=q=>{const m=String(q||"").trim().match(/(?:^|\s)(\d+\/\d+)$/);return m?m[1]:""};
+const fracSel=q=>{const cur=trailFr(q);return `<select class="fr" aria-label="Fracción"><option value="">+ fracc.</option>${FR.map(f=>`<option${f===cur?" selected":""}>${f}</option>`).join("")}</select>`}
 function render(){
+  if(!S.length){$("#list").innerHTML=`<p class="empty">Esta área todavía no tiene productos.<br>Envía la lista para agregarla.</p>`;count();return}
+  const rd=(pv&&pv.fecha)||iso(new Date(new Date(st.fecha+"T12:00").getTime()-864e5));
   $("#list").innerHTML=S.map(([t,its])=>`<section><h2>${t}</h2>${its.map(i=>{
-    const o=st.it[i[0]]||{},p=pv&&pv.it[i[0]];
-    const ay=p&&p.q?`<small class="ay">ayer: ${esc(p.q)} ${esc(p.u||units[i[0]]||i[2])}${p.s?" · "+esc(p.s):""}</small>`:"";
-    const sub=i[3]!==undefined?`<input class="sub" data-id="${i[0]}" data-k="s" placeholder="${esc(i[4]||"Nombres del día")}" value="${esc(o.s!==undefined?o.s:i[3])}">`:"";
-    return `<div class="row"><div class="nm"><b>${i[1]}</b>${sub}${ay}</div><input class="q" data-id="${i[0]}" data-k="q" placeholder="0" value="${esc(o.q)}" aria-label="Cantidad de ${i[1]}"><input class="u" data-id="${i[0]}" data-k="u" value="${esc(U(i))}" aria-label="Unidad de ${i[1]}"></div>`}).join("")}</section>`).join("");
+    const id=i[0],o=st.it[id]||{},p=pv&&pv.it[id];
+    if(MULTI[id]){
+      const E=getE(o),L=E.length?E:[{n:"",q:""}];
+      const pe=getE(p||{}).filter(x=>String(x.q||"").trim());
+      const ayM=`<small class="ay">${dayLbl(rd)}: ${pe.length?esc(pe.map(x=>(x.n?x.n+" ":"")+x.q).join(" · ")+" "+(p.u||units[id]||i[2])):"-"}</small>`;
+      return `<div class="mrow"><div class="mh"><b>${i[1]}</b><input class="u" data-id="${id}" data-k="u" value="${esc(U(i))}" aria-label="Unidad de ${i[1]}"></div>${ayM}${L.map((x,k)=>`<div class="ent"><input class="en" data-id="${id}" data-i="${k}" data-k="n" placeholder="${esc(MULTI[id])}" value="${esc(x.n)}"><input class="q" data-id="${id}" data-i="${k}" data-k="q" placeholder="0" value="${esc(x.q)}" aria-label="Cantidad">${fracSel(x.q)}<button type="button" class="del g" data-del="${id}" data-i="${k}" aria-label="Quitar">×</button></div>`).join("")}<button type="button" class="add g" data-add="${id}">+ Agregar pescado</button></div>`}
+    const ay=`<small class="ay">${dayLbl(rd)}: ${p&&p.q?esc(p.q)+" "+esc(p.u||units[id]||i[2])+(p.s?" · "+esc(p.s):""):"-"}</small>`;
+    const sub=i[3]!==undefined?`<input class="sub" data-id="${id}" data-k="s" placeholder="${esc(i[4]||"Nombres del día")}" value="${esc(o.s!==undefined?o.s:i[3])}">`:"";
+    return `<div class="row"><div class="nm"><b>${i[1]}</b>${sub}${ay}</div><input class="q" data-id="${id}" data-k="q" placeholder="0" value="${esc(o.q)}" aria-label="Cantidad de ${i[1]}">${fracSel(o.q)}<input class="u" data-id="${id}" data-k="u" value="${esc(U(i))}" aria-label="Unidad de ${i[1]}"></div>`}).join("")}</section>`).join("");
   count()}
-function count(){const n=ALL.filter(i=>(st.it[i[0]]&&String(st.it[i[0]].q||"").trim())).length;$("#cnt").textContent=n+" de "+ALL.length+" llenados"}
-const save=()=>ls.s("fr:draft:"+st.fecha,st);
+const filled=i=>{const o=st.it[i[0]];if(!o)return false;return MULTI[i[0]]?getE(o).some(x=>String(x.q||"").trim()):!!String(o.q||"").trim()};
+function count(){const n=ALL.filter(filled).length;$("#cnt").textContent=n+" de "+ALL.length+" llenados"}
+const save=()=>ls.s("fr:draft:"+area+":"+st.fecha,st);
 document.addEventListener("input",e=>{const t=e.target,id=t.dataset.id;
-  if(id){const o=st.it[id]=st.it[id]||{};o[t.dataset.k]=t.value;if(t.dataset.k==="u"){units[id]=t.value;ls.s("fr:units",units)}save();count()}
+  if(id){const o=st.it[id]=st.it[id]||{};
+    if(t.dataset.i!==undefined){const k=+t.dataset.i;ensureE(o,k);o.e[k][t.dataset.k]=t.value}
+    else{o[t.dataset.k]=t.value;if(t.dataset.k==="u"){units[id]=t.value;ls.s("fr:units:"+area,units)}}
+    if(t.classList.contains("q")){const s=t.parentElement.querySelector("select.fr");if(s){const c=trailFr(t.value);s.value=FR.includes(c)?c:""}}
+    save();count()}
   else if(t.dataset.f){st[t.dataset.f]=t.value;save()}});
 $("#fecha").addEventListener("change",e=>{if(e.target.value)load(e.target.value)});
 
 const fechaTxt=()=>{const t=new Date(st.fecha+"T12:00").toLocaleDateString("es-PE",{weekday:"long",day:"numeric",month:"long",year:"numeric"});return t.charAt(0).toUpperCase()+t.slice(1)};
-function lines(){return S.map(([t,its])=>({t,r:its.map(i=>{const o=st.it[i[0]]||{};const q=String(o.q||"").trim();
-  return {n:i[1]+(i[3]!==undefined&&(o.s!==undefined?o.s:i[3])?" ("+(o.s!==undefined?o.s:i[3])+")":""),v:q?q+" "+U(i):"—",e:!q}})}))}
+function lines(){return S.map(([t,its])=>({t,r:its.flatMap(i=>{const o=st.it[i[0]]||{};
+  if(MULTI[i[0]]){const E=getE(o).filter(x=>String(x.q||"").trim()||String(x.n||"").trim());
+    if(!E.length)return [{n:i[1],v:"—",e:true}];
+    return E.map(x=>{const q=String(x.q||"").trim(),n=String(x.n||"").trim();return {n:i[1]+(n?" · "+n:""),v:q?q+" "+U(i):"—",e:!q}})}
+  const q=String(o.q||"").trim();
+  return [{n:i[1]+(i[3]!==undefined&&(o.s!==undefined?o.s:i[3])?" ("+(o.s!==undefined?o.s:i[3])+")":""),v:q?q+" "+U(i):"—",e:!q}]})}))}
 
-/* ---------- Pantalla de resumen / Conforme ---------- */
+/* ---------- Resumen / Conforme ---------- */
 function showSum(ok){
-  const L=lines(),falta=L.flatMap(s=>s.r).filter(r=>r.e).length;
-  $("#sumbody").innerHTML=`<h2>${ok?"Conforme ✓":"Kardex de fríos · Trinidad"}</h2><div>${fechaTxt()}</div><div>Jefa: ${esc(st.jefa)||"—"} · Encargado de día: ${esc(st.enc)||"—"}</div>
+  const L=lines(),falta=L.flatMap(s=>s.r).filter(r=>r.e).length,nm=AREAS[area].nm.toLowerCase();
+  $("#sumbody").innerHTML=`<h2>${ok?"Conforme ✓":"Kardex de "+nm+" · Trinidad"}</h2><div>${fechaTxt()}</div><div>Jefa: ${esc(st.jefa)||"—"} · Encargado de día: ${esc(st.enc)||"—"}</div>
   ${falta?`<p class="warn">Faltan ${falta} productos sin llenar</p>`:""}
   <table>${L.map(s=>`<tr class="sec"><td colspan="2">${s.t}</td></tr>`+s.r.map(r=>`<tr><td>${esc(r.n)}</td><td>${esc(r.v)}</td></tr>`).join("")).join("")}</table>`;
   if(ok){
     $("#sumbtns").innerHTML=`<button id="pdfsend">Enviar PDF</button><button class="g" id="pdfsave">Guardar PDF</button><button class="g" id="wa">Enviar por WhatsApp (texto)</button><button class="g" id="ed">Editar</button>`;
-    $("#pdfsend").onclick=sharePdf;
-    $("#pdfsave").onclick=()=>downloadPdf();
-    $("#wa").onclick=shareText;
+    $("#pdfsend").onclick=sharePdf;$("#pdfsave").onclick=()=>downloadPdf();$("#wa").onclick=shareText;
     $("#ed").onclick=()=>{$("#sum").style.display="none"};
   }else{
     $("#sumbtns").innerHTML=`<button class="g" id="ed">Editar</button><button id="ok">Conforme</button>`;
     $("#ed").onclick=()=>{$("#sum").style.display="none"};
-    $("#ok").onclick=()=>{st.hora=new Date().toTimeString().slice(0,5);ls.s("fr:saved:"+st.fecha,st);showSum(true)};
+    $("#ok").onclick=()=>{st.hora=new Date().toTimeString().slice(0,5);
+      ALL.forEach(i=>{const o=st.it[i[0]]=st.it[i[0]]||{};o.u=U(i);if(i[3]!==undefined&&o.s===undefined)o.s=i[3]});
+      ls.s("fr:saved:"+area+":"+st.fecha,st);showSum(true)};
   }
   $("#sum").style.display="block";scrollTo(0,0);$("#sum").scrollTop=0}
 
 async function shareText(){
-  const tx=`Kardex de fríos · Trinidad\n${fechaTxt()}\nJefa: ${st.jefa||"—"} · Encargado: ${st.enc||"—"}\n\n`+lines().map(s=>s.t+"\n"+s.r.map(r=>"• "+r.n+": "+r.v).join("\n")).join("\n\n");
-  try{if(navigator.share){await navigator.share({title:"Kardex de fríos",text:tx})}else{await navigator.clipboard.writeText(tx);alert("Copiado. Pégalo en WhatsApp.")}}catch(e){}}
+  const tx=`Kardex de ${AREAS[area].nm.toLowerCase()} · Trinidad\n${fechaTxt()}\nJefa: ${st.jefa||"—"} · Encargado: ${st.enc||"—"}\n\n`+lines().map(s=>s.t+"\n"+s.r.map(r=>"• "+r.n+": "+r.v).join("\n")).join("\n\n");
+  try{if(navigator.share){await navigator.share({title:"Kardex de "+AREAS[area].nm.toLowerCase(),text:tx})}else{await navigator.clipboard.writeText(tx);alert("Copiado. Pégalo en WhatsApp.")}}catch(e){}}
+
+document.addEventListener("change",e=>{const s=e.target;if(!s.classList||!s.classList.contains("fr"))return;
+  const q=s.parentElement.querySelector("input.q");if(!q)return;
+  let v=q.value.trim().replace(/(^|\s)\d+\/\d+$/,"").trim();const f=s.value;
+  if(f)v=(v&&v!=="0")?v+" "+f:f;
+  q.value=v;q.dispatchEvent(new Event("input",{bubbles:true}))});
+document.addEventListener("click",e=>{const T=e.target;
+  const a=T.closest(".area");if(a){enter(a.dataset.a);return}
+  const ad=T.closest("[data-add]");if(ad){const id=ad.dataset.add,o=st.it[id]=st.it[id]||{},n=Math.max(1,getE(o).length);ensureE(o,n);save();render();const f=document.querySelector(`input[data-id="${id}"][data-i="${n}"][data-k="n"]`);if(f)f.focus();return}
+  const dl=T.closest("[data-del]");if(dl){const id=dl.dataset.del,o=st.it[id]=st.it[id]||{};ensureE(o,0);o.e.splice(+dl.dataset.i,1);save();render()}
+});
 
 /* ---------- Generador de PDF (sin librerías) ---------- */
 const WT=[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584];
@@ -137,7 +245,6 @@ function buildPdf(){
   const R=(x,y,w,h,col)=>c.push(`${col} rg ${f2(x)} ${f2(H-y-h)} ${f2(w)} ${f2(h)} re f`);
   const L=(x1,y1,x2,y2,col,lw)=>c.push(`${lw} w ${col} RG ${f2(x1)} ${f2(H-y1)} m ${f2(x2)} ${f2(H-y2)} l S`);
   const X0=40,X1=555;
-  // Logo
   const cx=490;
   Tc(cx,48,"CHIMBOTE",6.5,true,2.2);
   c.push(`1.3 w ${INK} RG 1 J 1 j`);
@@ -145,24 +252,22 @@ function buildPdf(){
   c.push(d+"S");
   Tc(cx,81,"TRINIDAD",21,true,0.8);
   Tc(cx,95,"CEBICHERÍA",6.5,true,2.2);
-  // Título
-  T(X0,60,"KARDEX DE FRÍOS",16,true);
+  T(X0,60,"KARDEX DE "+AREAS[area].ti,16,true);
   T(X0,76,fechaTxt(),9.5,false);
   T(X0,89,"Jefa: "+(st.jefa||"—")+"  ·  Encargado de día: "+(st.enc||"—"),9.5,false);
   L(X0,108,X1,108,INK,1.2);
-  // Secciones
-  let y=117;const RH=14.5,HH=16;
-  for(const s of lines()){
+  const LL=lines(),nr=LL.reduce((a,s)=>a+s.r.length,0),HH=16,GAP=5;
+  const RH=Math.min(14.5,(785-117-LL.length*(HH+GAP))/Math.max(nr,1));
+  let y=117;
+  for(const s of LL){
     R(X0,y,X1-X0,HH,BAND);T(X0+4,y+11.2,s.t.toUpperCase(),8.5,true);y+=HH;
     for(const r of s.r){
-      T(X0+4,y+10.2,r.n,8.6,false);
-      Tr(X1-4,y+10.2,r.v,8.6,false,r.e?MUT:INK);
+      T(X0+4,y+RH*0.7,r.n,8.6,false);
+      Tr(X1-4,y+RH*0.7,r.v,8.6,false,r.e?MUT:INK);
       L(X0,y+RH,X1,y+RH,LN,0.4);y+=RH}
-    y+=5}
-  // Pie
+    y+=GAP}
   const fy=Math.max(y+22,800);
   Tc((X0+X1)/2,fy,"CONFORME - "+(st.hora||new Date().toTimeString().slice(0,5))+" h",8.5,true,0);
-  // Ensamblar
   const stream=c.join("\n");
   const objs=[
     "<< /Type /Catalog /Pages 2 0 R >>",
@@ -179,7 +284,7 @@ function buildPdf(){
   out+=`trailer\n<< /Size ${objs.length+1} /Root 1 0 R >>\nstartxref\n${xr}\n%%EOF`;
   const u=new Uint8Array(out.length);for(let i=0;i<out.length;i++)u[i]=out.charCodeAt(i)&255;
   return new Blob([u],{type:"application/pdf"})}
-const pdfName=()=>"Kardex_Trinidad_"+st.fecha+".pdf";
+const pdfName=()=>"Kardex_"+AREAS[area].nm.replace("í","i")+"_Trinidad_"+st.fecha+".pdf";
 function downloadPdf(){
   const b=buildPdf(),url=URL.createObjectURL(b),a=document.createElement("a");
   a.href=url;a.download=pdfName();document.body.appendChild(a);a.click();a.remove();
@@ -187,12 +292,13 @@ function downloadPdf(){
 async function sharePdf(){
   const b=buildPdf(),f=new File([b],pdfName(),{type:"application/pdf"});
   try{
-    if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"Kardex de fríos · Trinidad"})}
+    if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"Kardex de "+AREAS[area].nm.toLowerCase()+" · Trinidad"})}
     else downloadPdf();
   }catch(e){if(e&&e.name!=="AbortError")downloadPdf()}}
 
 $("#go").onclick=()=>showSum(false);
-load(iso(new Date()));
+$("#back").onclick=showHome;
+showHome();
 </script>
 </body>
 </html>
