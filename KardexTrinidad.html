@@ -63,7 +63,7 @@ button.g{background:var(--pk2);color:var(--pk3)}
 <script>
 // [id, nombre, unidad por defecto, nombres editables del día (opcional)]
 const S=[
-["Pesca del día",[["pt","Pescado de temporada","taper","Páramo, Viña, Cabrilla"],["pl","Pescado de lujo","bolsa","Viuda, Lenguado"],["ch","Chita","pzas"],["le","Lenguetas","pzas"]]],
+["Pesca del día",[["pt","Pescado de temporada","taper","Páramo, Viña, Cabrilla"],["pl","Pescado de lujo","bolsa","Viuda, Lenguado"],["ch","Chita","pzas"],["le","Lenguetas","pzas"],["pf","Pescado prestado a fritura","pzas","","Tipo de pescado"]]],
 ["Leches de tigre",[["t1","Leche de tigre infusionada","biberón"],["t2","Tigre roja","biberón"],["t3","Tigre amarilla","biberón"],["t4","Tigre cremosa","biberón"]]],
 ["Cortes y preparados",[["c1","Cebolla en pluma","taper"],["c2","Cebolla en brunoise","cambro"],["c3","Culantro chifonade","cambro"],["c4","Ají limo en brunoise","cambro"],["c5","Camote sancochado","und"]]],
 ["Pastas y base",[["p1","Pasta de rocoto","bolsa"],["p2","Pasta de ají amarillo","bolsa"],["p3","Ajos","nov."],["p4","Kion","nov."],["p5","Zarandaja","bolsa"]]],
@@ -86,7 +86,7 @@ function render(){
   $("#list").innerHTML=S.map(([t,its])=>`<section><h2>${t}</h2>${its.map(i=>{
     const o=st.it[i[0]]||{},p=pv&&pv.it[i[0]];
     const ay=p&&p.q?`<small class="ay">ayer: ${esc(p.q)} ${esc(p.u||units[i[0]]||i[2])}${p.s?" · "+esc(p.s):""}</small>`:"";
-    const sub=i[3]!==undefined?`<input class="sub" data-id="${i[0]}" data-k="s" placeholder="Nombres del día" value="${esc(o.s!==undefined?o.s:i[3])}">`:"";
+    const sub=i[3]!==undefined?`<input class="sub" data-id="${i[0]}" data-k="s" placeholder="${esc(i[4]||"Nombres del día")}" value="${esc(o.s!==undefined?o.s:i[3])}">`:"";
     return `<div class="row"><div class="nm"><b>${i[1]}</b>${sub}${ay}</div><input class="q" data-id="${i[0]}" data-k="q" placeholder="0" value="${esc(o.q)}" aria-label="Cantidad de ${i[1]}"><input class="u" data-id="${i[0]}" data-k="u" value="${esc(U(i))}" aria-label="Unidad de ${i[1]}"></div>`}).join("")}</section>`).join("");
   count()}
 function count(){const n=ALL.filter(i=>(st.it[i[0]]&&String(st.it[i[0]].q||"").trim())).length;$("#cnt").textContent=n+" de "+ALL.length+" llenados"}
